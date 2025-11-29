@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import App from "./App";
 import { createMemoryHistory, createBrowserHistory } from 'history';
 
-const mount = (el, { onNavigate, defaultHistory, initialPath }) => {
+const mount = (el, { onNavigate, onSignIn, defaultHistory, initialPath }) => {
+    console.log('jjjjjjj', initialPath);
     //For handling the Routing in the Child Apps
     //if it is running standalone in dev server then defaultHistory is available and use that
     const history = defaultHistory || createMemoryHistory({
@@ -14,7 +15,7 @@ const mount = (el, { onNavigate, defaultHistory, initialPath }) => {
         history.listen(onNavigate); //If any change in the history object then it will call this onNavigate callback
     }
     ReactDOM.render(
-        <App history={history} />,
+        <App history={history} onSignIn={onSignIn} />,
         el
     );
 
@@ -22,6 +23,7 @@ const mount = (el, { onNavigate, defaultHistory, initialPath }) => {
     return {
         onParentNavigate({ pathname: nextPathname }) {
             const { pathname } = history.location;
+            console.log(pathname);
             if (pathname !== nextPathname) {
                 history.push(nextPathname);
             }
@@ -31,7 +33,7 @@ const mount = (el, { onNavigate, defaultHistory, initialPath }) => {
 
 
 if (process.env.NODE_ENV === 'development') {
-    const devRoot = document.querySelector("#_marketing-dev-root");
+    const devRoot = document.querySelector("#_auth-dev-root");
     if (devRoot) {
         //defaultHistory is used to handle navigation when the app is running in standalone
         mount(devRoot, { defaultHistory: createBrowserHistory() });

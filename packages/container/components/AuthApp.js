@@ -1,10 +1,10 @@
 import React from "react";
-import { mount } from "marketing/MarketingApp";
+import { mount } from "../../auth/src/bootstrap";
 import { useEffect } from "react";
 import { useRef } from "react";
 import { useHistory } from 'react-router-dom';
 
-export default (() => {
+export default (({ onSignIn }) => {
 
     const ref = useRef(null);
     const history = useHistory();
@@ -20,7 +20,8 @@ export default (() => {
                 if (pathname !== nextPathName) {
                     history.push(nextPathName);
                 }
-            }
+            },
+            onSignIn
         });
 
         //Whenever there is a change in hintory we will call onParentNavigate

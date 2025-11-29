@@ -1,24 +1,27 @@
 import React from "react";
 import { StylesProvider, createGenerateClassName } from "@material-ui/core";
-import { Router, Switch } from "react-router-dom/cjs/react-router-dom";
-import { Route } from "react-router-dom/cjs/react-router-dom.min";
-import Pricing from "./components/Pricing";
-import Landing from "./components/Landing"
+import { Router, Switch, Route } from "react-router-dom";
+import SignIn from "./components/Signin";
+import SignUp from "./components/Signup";
 
 
 //This is to stop collision on to the CSS class name between diff MFE projects
 const generateClassname = createGenerateClassName({
-    productionPrefix: 'ma',
+    productionPrefix: 'au',
 });
 
-export default ({ history }) => {
+export default ({ history, onSignIn }) => {
     return (
         <div>
             <StylesProvider generateClassName={generateClassname}>
                 <Router history={history}>
                     <Switch>
-                        <Route exact path="/pricing" component={Pricing} />
-                        <Route path="/" component={Landing} />
+                        <Route path="/auth/signin">
+                            <SignIn onSignIn={onSignIn} />
+                        </Route>
+                        <Route path="/auth/signup">
+                            <SignUp onSignIn={onSignIn} />
+                        </Route>
                     </Switch>
                 </Router>
             </StylesProvider>
