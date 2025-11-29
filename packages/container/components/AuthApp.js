@@ -1,5 +1,5 @@
 import React from "react";
-import { mount } from "../../auth/src/bootstrap";
+import { mount } from "auth/AuthApp";
 import { useEffect } from "react";
 import { useRef } from "react";
 import { useHistory } from 'react-router-dom';
